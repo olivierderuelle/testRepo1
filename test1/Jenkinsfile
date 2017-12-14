@@ -1,10 +1,12 @@
-node('master') {
-	stage 'BUILD' {
-		steps{
-			sh 'mvn clean install'
-		}
-	}
-	stage 'TEST'
-	stage 'STAGING', concurrency: 1
-	stage 'PRODUCTION', concurrency: 1
+pipeline {
+    agent any
+    stages {
+		stage('Compile stage') {
+			steps {
+				maven(maven : 'Maven_3.5.2'){
+                sh "mvn clean compile"
+                }
+            }
+        }
+    }
 }
