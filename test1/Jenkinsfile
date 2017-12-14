@@ -1,6 +1,10 @@
 node('master') {
-	stage 'BUILD'
+	stage 'BUILD' {
+		steps{
+			sh 'mvn clean install'
+		}
+	}
 	stage 'TEST'
-	stage 'STAGING'
-	stage 'PRODUCTION'
+	stage 'STAGING', concurrency: 1
+	stage 'PRODUCTION', concurrency: 1
 }
