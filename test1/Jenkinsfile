@@ -1,4 +1,4 @@
-node('node') {
+node('master') {
 	stage 'BUILD'
 	stage 'TEST'
 	stage 'STAGING'
