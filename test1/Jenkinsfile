@@ -1,6 +1,5 @@
 node('node') {
 	stage 'BUILD'
-		checkout scm
 	stage 'TEST'
 	stage 'STAGING'
 	stage 'PRODUCTION'
