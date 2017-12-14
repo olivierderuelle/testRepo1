@@ -1,7 +1,7 @@
 node('node') {
-	stage 'Build'
+	stage 'BUILD'
 		checkout scm
-	stage 'Test Scripts'
-	stage 'Staging'
-	stage 'Production'
+	stage 'TEST'
+	stage 'STAGING'
+	stage 'PRODUCTION'
 }
