@@ -1,9 +1,15 @@
 node {
-   stage('Build') {
+   stage('Compile') {
 	  git url: 'https://github.com/olivierderuelle/testRepo1'
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    sh "mvn -f test1/pom.xml clean install"
+	    sh "mvn -f test1/pom.xml clean compile"
+	  }
+   }
+   stage('Test') {
+      def mvn_version = 'M3'
+      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+	    sh "mvn -f test1/pom.xml test"
 	  }
    }
 }
