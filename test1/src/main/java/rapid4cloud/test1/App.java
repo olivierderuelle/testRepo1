@@ -13,6 +13,6 @@ public class App
     }
 
 	public boolean isReady() {
-		return false;
+		return true;
 	}
 }
