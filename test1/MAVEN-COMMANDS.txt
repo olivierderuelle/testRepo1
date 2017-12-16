@@ -1,0 +1,45 @@
+RUN THE APPLICATION
+===================
+mvn spring-boot:run
+
+GENERATE THE JAR FILE FOR PRODUCTION
+====================================
+mvn package
+java -jar target/test1-0.0.1-SNAPSHOT.war
+http://localhost:8080
+
+MAVEN DOCKER GENERATION:
+========================
+mvn clean package docker:build
+Error: unable to connect to the docker daemon localhost:2375
+solution: prerequisite on windows: click the "expose tcp://...:2375 port without TLs" in the docker settings.
+
+ERROR: CANNOT FIND THE DOCKERFILE IN ROOT FOLDER
+SOLUTION:  ADD <dockerFileDir>${project.basedir}</dockerFileDir> AND REMOVE <DOCKERFILE></DOCKERfiLE/>
+
+[ERROR] Failed to execute goal io.fabric8:docker-maven-plugin:0.15.3:build (default-cli) on project test3: Execution default-cli of goal io.fabric8:docker-maven-plugin:0.15.3:build failed: A tar file cannot include itself. -> [Help 1]
+SOLUTION: ADD A FILE .maven-dockerignore
+
+docker run --name=test1 -p 11111:8080 test1
+Error: Invalid or corrupt jarfile /app.jar
+solution: JAR_FILE IS not found in the dockerfile so fix the pom with:
+<docker.buildArg.JAR_FILE>target/${project.artifactId}-${project.version}.${project.packaging}</docker.buildArg.JAR_FILE>
+
+
+[ERROR] Failed to execute goal io.fabric8:docker-maven-plugin:0.15.3:build (default-cli) on project test3: Unable to build image [test1]: ADD failed: stat /var/lib/docker/tmp/docker-builder881547907/target/test3-0.0.1-SNAPSHOT.war: no such file or directory -> [Help 1]
+solution: target/docker/** IN .maven-dockerignore
+
+ERROR WHEN RUNNING THE APP:
+docker run --name=test1 -p 11111:8080 test1
+http://localhost:11111
+Sat Dec 16 15:42:37 GMT 2017
+There was an unexpected error (type=Not Found, status=404).
+/WEB-INF/views/login.jsp
+SOLUTION:
+docker exec -it test1 /bin/sh
+cat myAppLogFile.txt
+DOCKER FILE WAS WRONG MUST LOAD THE WAR NOT THE JAR (JSPS DONT WORK IN EMBEDDED TOMCAT IF JAR)
+ARG WAR_FILE
+ADD ${WAR_FILE} app.war
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.war"]
+ 

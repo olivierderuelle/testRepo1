@@ -1,5 +1,5 @@
 node {
-   stage('Compile') {
+   stage('Build') {
 	  git url: 'https://github.com/olivierderuelle/testRepo1'
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
@@ -10,6 +10,12 @@ node {
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 	    sh "mvn -f test1/pom.xml test"
+	  }
+   }
+   stage('Build') {
+      def mvn_version = 'M3'
+      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+	    sh "mvn -f test1/pom.xml package docker:build"
 	  }
    }
 }
