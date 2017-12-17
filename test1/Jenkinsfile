@@ -9,13 +9,13 @@ node {
    stage('Test') {
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    sh "mvn -f test1/pom.xml test"
+	    bat "mvn -f test1/pom.xml test"
 	  }
    }
    stage('Build') {
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    sh "mvn -f test1/pom.xml package docker:build"
+	    bat "mvn -f test1/pom.xml package docker:build"
 	  }
    }
 }
