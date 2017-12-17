@@ -43,3 +43,8 @@ ARG WAR_FILE
 ADD ${WAR_FILE} app.war
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.war"]
  
+ 
+JENKINS PIPELINE FAILS:
+ERROR: [ERROR] Failed to execute goal io.fabric8:docker-maven-plugin:0.15.3:build (default-cli) on project test3: Unable to check image [openjdk:8-jdk-alpine]: Connect to 127.0.0.1:2375 [/127.0.0.1] failed: Connection refused (Connection refused) -> [Help 1]
+SOLUTION: 
+ 
