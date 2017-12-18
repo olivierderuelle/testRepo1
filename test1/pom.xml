@@ -82,6 +82,9 @@
 							<name>test1</name>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
+								<tags>
+									<tag>odtag1</tag>
+								</tags>
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
