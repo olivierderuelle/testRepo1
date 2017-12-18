@@ -12,7 +12,8 @@ MAVEN DOCKER GENERATION:
 ========================
 mvn clean package docker:build
 docker run --name=test1 -p 11111:8080 test1:odtag1
-
+mvn docker:stop
+mvn docker:run
 
 ERROR: unable to connect to the docker daemon localhost:2375
 SOLUTION: prerequisite on windows: click the "expose tcp://...:2375 port without TLs" in the docker settings.

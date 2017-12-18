@@ -80,6 +80,7 @@
 					<images>
 						<image>
 							<name>test1</name>
+							<alias>odimage1</alias>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 								<tags>
@@ -89,6 +90,12 @@
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
 							</build>
+							<run>
+								<namingStrategy>alias</namingStrategy>
+								<ports>
+									<port>11111:8080</port>
+								</ports>
+							</run>
 						</image>
 					</images>
 				</configuration>
