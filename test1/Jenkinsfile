@@ -4,8 +4,8 @@ node {
       def mvn_version = 'M3'
 	  def javaHome = tool 'java8'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-		echo %JAVA_HOME%
-		echo %javaHome%
+		bat "echo %JAVA_HOME%"
+		bat "echo %javaHome%"
 	    bat "JAVA_HOME=$javaHome mvn -f test1/pom.xml clean compile"
 	  }
    }
