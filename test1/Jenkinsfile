@@ -22,4 +22,7 @@ node {
 	    bat "mvn -f test1/pom.xml package docker:build"
 	  }
    }
+   stage ('Run') {
+      bat "docker run --name=test1 -p 11111:8080 test1:odtag1"
+   }
 }

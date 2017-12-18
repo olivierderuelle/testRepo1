@@ -11,7 +11,7 @@ http://localhost:8080
 MAVEN DOCKER GENERATION:
 ========================
 mvn clean package docker:build
-docker run --name=test1 -p 11111:8080 test1
+docker run --name=test1 -p 11111:8080 test1:odtag1
 
 
 ERROR: unable to connect to the docker daemon localhost:2375
