@@ -11,8 +11,8 @@ http://localhost:8080
 TAGGING GIT
 ===========
 pipeline repo: https://github.com/olivierderuelle/testRepo1
-git tag -a v0.1 -m "my version 0.1"
-
+make a new tag: git tag -a v0.1 -m "my version 0.1"
+list all the tags: git tag
 
 DEPLOYMENT TO CI/CD SERVER:
 ===========================
