@@ -2,7 +2,7 @@ node {
    stage('Compile') {
 	  git url: 'https://github.com/olivierderuelle/testRepo1'
       def mvn_version = 'M3'
-	  def javaHome = tool 'JAVA_HOME'
+	  def javaHome = tool 'java8'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 	    bat "JAVA_HOME=$javaHome mvn -f test1/pom.xml clean compile"
 	  }
