@@ -2,11 +2,12 @@ node {
    stage('Compile') {
 	  git url: 'https://github.com/olivierderuelle/testRepo1'
       def mvn_version = 'M3'
-	  def javaHome = tool 'java8'
+	  jdk = tool name: 'java8'
+	  env.JAVA_HOME = "${jdk}"
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-		bat "echo %JAVA_HOME%"
-		bat "echo %javaHome%"
-	    bat "JAVA_HOME=$javaHome mvn -f test1/pom.xml clean compile"
+		bat "echo 'jdk installation path is: ${jdk}'"
+		bat "${jdk}/bin/java -version"
+	    bat " mvn -f test1/pom.xml clean compile"
 	  }
    }
    stage('Test') {
