@@ -23,6 +23,6 @@ node {
 	  }
    }
    stage ('Run') {
-      bat "docker run --name=test1 -p 11111:8080 test1:odtag1"
+      bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
    }
 }
