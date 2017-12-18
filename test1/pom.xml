@@ -80,11 +80,11 @@
 					<images>
 						<image>
 							<name>test1</name>
-							<alias>odimage1</alias>
+							<alias>test1</alias>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 								<tags>
-									<tag>odtag1</tag>
+									<tag>unstable</tag>
 								</tags>
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>

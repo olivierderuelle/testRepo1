@@ -8,12 +8,34 @@ mvn package
 java -jar target/test1-0.0.1-SNAPSHOT.war
 http://localhost:8080
 
+TAGGING GIT
+===========
+pipeline repo: https://github.com/olivierderuelle/testRepo1
+git tag -a v0.1 -m "my version 0.1"
+
+
+DEPLOYMENT TO CI/CD SERVER:
+===========================
+Hostname: jdev01.rapid4cloud.com
+User: rapid (this is a default admin user, if needed to use "root" privilege please use "sudo")
+Password: he43vm41
+Initial specification: 4 x vCPU, 8 x GB RAM, 100GB backed by ESXProd01
+
+VNC: jdev01.rapid4cloud.com:5901
+password: he43vm41
+
+https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/
+https://www.atlassian.com/continuous-delivery/continuous-delivery-workflows-with-feature-branching-and-gitflow
+https://team-coder.com/from-git-flow-to-trunk-based-development/
+
+
 MAVEN DOCKER GENERATION:
 ========================
 mvn clean package docker:build
 docker run --name=test1 -p 11111:8080 test1:odtag1
 mvn docker:stop
 mvn docker:run
+
 
 ERROR: unable to connect to the docker daemon localhost:2375
 SOLUTION: prerequisite on windows: click the "expose tcp://...:2375 port without TLs" in the docker settings.
