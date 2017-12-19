@@ -94,6 +94,7 @@
 				<configuration>
 					<dockerHost>tcp://127.0.0.1:2375</dockerHost>
 					<verbose>true</verbose>
+					<registry>registry.hub.docker.com/olivierderuelle/test1</registry>
 					<images>
 						<image>
 							<name>test1</name>
@@ -106,8 +107,8 @@
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
-								<!--  <cleanup>try</cleanup> --><!-- use 'try' if you want the previous image to be removed 
-								or 'none' to keep all of them -->
+								<!-- <cleanup>try</cleanup> --><!-- use 'try' if you want the previous image to be removed or 'none' 
+									to keep all of them -->
 							</build>
 							<run>
 								<namingStrategy>alias</namingStrategy>
@@ -116,13 +117,18 @@
 								</ports>
 							</run>
 						</image>
+						<authConfig>
+							<username>olivierderuelle</username>
+							<password>mypwd123</password>
+						</authConfig>
 					</images>
 				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

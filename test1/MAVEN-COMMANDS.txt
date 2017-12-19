@@ -24,6 +24,9 @@ Initial specification: 4 x vCPU, 8 x GB RAM, 100GB backed by ESXProd01
 VNC: jdev01.rapid4cloud.com:5901
 password: he43vm41
 
+https://medium.com/@basi/docker-compose-from-development-to-production-88000124a57c
+https://www.masterzendframework.com/docker-from-development-to-deployment/
+
 https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/
 https://www.atlassian.com/continuous-delivery/continuous-delivery-workflows-with-feature-branching-and-gitflow
 https://team-coder.com/from-git-flow-to-trunk-based-development/
