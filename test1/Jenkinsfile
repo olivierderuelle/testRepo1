@@ -7,7 +7,7 @@ node {
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 		bat "echo 'jdk installation path is: ${jdk}'"
 		bat "${jdk}/bin/java -version"
-	    bat " mvn -f test1/pom.xml clean compile"
+	    bat "mvn -f test1/pom.xml clean compile"
 	  }
    }
    stage('Test') {
@@ -17,19 +17,23 @@ node {
 	  }
    }
    stage('Build') {
-      def mvn_version = 'M3'
-      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    bat "mvn -f test1/pom.xml package docker:build"
+	  lock('build') {
+		def mvn_version = 'M3'
+		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+			bat "mvn -f test1/pom.xml package docker:build"
+		}
 	  }
    }
    stage ('Run') {
-	  // replace below with the mvn docker plugin run command as here we got no idea the version tag to run!!!
-	  // also call mvn docker plugin to stop the container as the port is already in use!!!
-      // bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
-	  def mvn_version = 'M3'
-      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    bat "mvn -f test1/pom.xml docker:stop"
-		bat "mvn -f test1/pom.xml docker:run"
+      lock('run') {
+		// replace below with the mvn docker plugin run command as here we got no idea the version tag to run!!!
+		// also call mvn docker plugin to stop the container as the port is already in use!!!
+		// bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
+		def mvn_version = 'M3'
+		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+			bat "mvn -f test1/pom.xml docker:stop"
+			bat "mvn -f test1/pom.xml docker:run"
+		}
 	  }
    }
 }

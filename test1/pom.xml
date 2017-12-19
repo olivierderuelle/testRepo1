@@ -106,7 +106,8 @@
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
-								<cleanup>none</cleanup>
+								<cleanup>try</cleanup> <!-- use 'try' if you want the previous image to be removed 
+								or 'none' to keep all of them -->
 							</build>
 							<run>
 								<namingStrategy>alias</namingStrategy>
