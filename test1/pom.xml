@@ -94,11 +94,15 @@
 				<configuration>
 					<dockerHost>tcp://127.0.0.1:2375</dockerHost>
 					<verbose>true</verbose>
-					<registry>registry.hub.docker.com/olivierderuelle/test1</registry>
+					<authConfig>
+						<username>olivierderuelle</username>
+						<password>mypwd123</password>
+					</authConfig>
 					<images>
 						<image>
 							<name>test1</name>
 							<alias>test1</alias>
+							<registry>registry.hub.docker.com/olivierderuelle/test1</registry>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 								<tags>
@@ -117,10 +121,7 @@
 								</ports>
 							</run>
 						</image>
-						<authConfig>
-							<username>olivierderuelle</username>
-							<password>mypwd123</password>
-						</authConfig>
+
 					</images>
 				</configuration>
 			</plugin>
