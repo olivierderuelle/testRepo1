@@ -106,6 +106,7 @@
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
+								<cleanup>none</cleanup>
 							</build>
 							<run>
 								<namingStrategy>alias</namingStrategy>
