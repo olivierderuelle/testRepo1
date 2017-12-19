@@ -1,7 +1,10 @@
+#!/usr/bin/groovy
+
 node {
-   stage('Compile') {
+   lock('full') {
+	  stage('Compile') {
 	  milestone()
-	  git url: 'https://github.com/olivierderuelle/testRepo1'
+	  checkout scm
       def mvn_version = 'M3'
 	  jdk = tool name: 'java8'
 	  env.JAVA_HOME = "${jdk}"
@@ -16,30 +19,29 @@ node {
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 	    bat "mvn -f test1/pom.xml test"
 	  }
-   }
-   lock('docker') {
+   }   
    stage('Build') {
-   	  milestone()
-	  
+   	  milestone()	  
 		def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 			bat "mvn -f test1/pom.xml docker:stop"
 			bat "mvn -f test1/pom.xml package docker:build"
-		}
-	 
+		}	 
    }
    stage ('Run') {
-   	  milestone()
-     
+   	  milestone()     
 		// replace below with the mvn docker plugin run command as here we got no idea the version tag to run!!!
 		// also call mvn docker plugin to stop the container as the port is already in use!!!
 		// bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
 		def mvn_version = 'M3'
-		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-			
+		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
 			bat "mvn -f test1/pom.xml docker:run"
 		}
-	 
+   }
+   stage ('Approval') {
+   		timeout(time:1, unit:'DAYS') {
+    		input message:'Approve deployment?', submitter: 'it-ops'
+		}
    }
    }
 }

@@ -97,7 +97,7 @@
 					<images>
 						<image>
 							<name>test1</name>
-							<alias>test1-${describe}</alias>
+							<alias>test1</alias>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 								<tags>
