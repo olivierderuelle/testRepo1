@@ -38,11 +38,11 @@ node {
 			bat "mvn -f test1/pom.xml docker:run"
 		}
    }
-   stage ('Approval') {
-   		timeout(time:1, unit:'DAYS') {
-    		input message:'Approve deployment? to Production', submitter: 'it-ops'
-		}
-   }
+  // stage ('Approval') {
+   //		timeout(time:1, unit:'DAYS') {
+   // 		input message:'Approve deployment to Production?', submitter: 'it-ops'
+	//	}
+  // }
    stage ('Production') {
 	  def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
