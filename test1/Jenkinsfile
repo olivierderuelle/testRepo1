@@ -24,6 +24,11 @@ node {
    	  milestone()	  
 		def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
+			GIT_VERSION = sh (
+				script: 'git describe',
+				returnStdout: true
+			).trim()
+			echo "GIT VERSION: ${GIT_VERSION}"
 			sh "mvn -f test1/pom.xml docker:stop"
 			sh "mvn -f test1/pom.xml package docker:build"
 		}	 
