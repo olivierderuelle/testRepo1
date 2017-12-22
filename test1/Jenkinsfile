@@ -9,23 +9,23 @@ node {
 	  jdk = tool name: 'java8'
 	  env.JAVA_HOME = "${jdk}"
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-		bat "echo 'jdk installation path is: ${jdk}'"
-		bat "${jdk}/bin/java -version"
-	    bat "mvn -f test1/pom.xml clean compile"
+		sh "echo 'jdk installation path is: ${jdk}'"
+		sh "${jdk}/bin/java -version"
+	    sh "mvn -f test1/pom.xml clean compile"
 	  }
    }
    stage('Test') {
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    bat "mvn -f test1/pom.xml test"
+	    sh "mvn -f test1/pom.xml test"
 	  }
    }   
    stage('Build') {
    	  milestone()	  
 		def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-			bat "mvn -f test1/pom.xml docker:stop"
-			bat "mvn -f test1/pom.xml package docker:build"
+			sh "mvn -f test1/pom.xml docker:stop"
+			sh "mvn -f test1/pom.xml package docker:build"
 		}	 
    }
    stage ('Staging') {
@@ -35,7 +35,7 @@ node {
 		// bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
 		def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
-			bat "mvn -f test1/pom.xml docker:run"
+			sh "mvn -f test1/pom.xml docker:run"
 		}
    }
   // stage ('Approval') {
@@ -46,7 +46,7 @@ node {
    stage ('Production') {
 	  def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
-			bat "mvn -f test1/pom.xml docker:push"
+			sh "mvn -f test1/pom.xml docker:push"
 	  }
    }
    }
