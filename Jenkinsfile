@@ -10,13 +10,13 @@ node {
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 		sh "echo 'jdk installation path is: ${jdk}'"
 		sh "${jdk}/bin/java -version"
-	    sh "mvn -f test1/pom.xml clean compile"
+	    sh "mvn -f pom.xml clean compile"
 	  }
    }
    stage('Test') {
       def mvn_version = 'M3'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    sh "mvn -f test1/pom.xml test"
+	    sh "mvn -f pom.xml test"
 	  }
    }   
    stage('Build') {
@@ -28,8 +28,8 @@ node {
 			).trim()
 			echo "GIT VERSION: ${GIT_VERSION}"
 			def customImage = docker.build("test1:${GIT_VERSION}")
-			//sh "mvn -f test1/pom.xml docker:stop"
-			//sh "mvn -f test1/pom.xml package docker:build"
+			//sh "mvn -f pom.xml docker:stop"
+			//sh "mvn -f pom.xml package docker:build"
 		}	 
    }
   // stage ('Staging') {
@@ -38,7 +38,7 @@ node {
 		// bat "docker run --name=test1 -p 11111:8080 -d test1:odtag1"
 	//	def mvn_version = 'M3'
 	//	withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
-	//		sh "mvn -f test1/pom.xml docker:run"
+	//		sh "mvn -f pom.xml docker:run"
 	//	}
  //  }
   // stage ('Approval') {
@@ -49,7 +49,7 @@ node {
    stage ('Production') {
 	  def mvn_version = 'M3'
 		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
-			sh "mvn -f test1/pom.xml docker:push"
+			sh "mvn -f pom.xml docker:push"
 	  }
    }
    }
