@@ -16,13 +16,22 @@ list all the tags: git tag
 
 DEPLOYMENT TO CI/CD SERVER:
 ===========================
-Hostname: jdev01.rapid4cloud.com
+Hostname: jdev02.rapid4cloud.com
 User: rapid (this is a default admin user, if needed to use "root" privilege please use "sudo")
 Password: he43vm41
 Initial specification: 4 x vCPU, 8 x GB RAM, 100GB backed by ESXProd01
 
-VNC: jdev01.rapid4cloud.com:5901
+VNC: jdev02.rapid4cloud.com:5901
 password: he43vm41
+
+deploy container to aws registry:
+https://medium.com/@pavelbely/deploying-dockerized-multi-container-application-to-aws-using-jenkins-833a998ce6ed
+http://docs.aws.amazon.com/AWSGettingStartedContinuousDeliveryPipeline/latest/GettingStarted/CICD_Jenkins_Pipeline.html
+https://medium.com/aws-activate-startup-blog/running-services-using-docker-and-amazon-ec2-container-service-bde16b099cb9
+https://renzedevries.wordpress.com/2016/07/20/publishing-a-docker-image-to-amazon-ecr-using-jenkins/
+https://www.slideshare.net/AmazonWebServices/building-a-cicd-pipeline-for-container-deployment-to-amazon-ecs-may-2017-aws-online-tech-talks
+http://cloudway.io/post/jenkins-in-ec2-container-service/
+
 
 https://medium.com/@basi/docker-compose-from-development-to-production-88000124a57c
 https://www.masterzendframework.com/docker-from-development-to-deployment/

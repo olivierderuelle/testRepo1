@@ -102,7 +102,7 @@
 						<image>
 							<name>test1</name>
 							<alias>test1</alias>
-							<registry>registry.hub.docker.com/olivierderuelle/test1</registry>
+							<registry>olivierderuelle</registry>
 							<build>
 								<dockerFileDir>${project.basedir}</dockerFileDir>
 								<tags>
