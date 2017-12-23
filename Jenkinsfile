@@ -29,7 +29,7 @@ node {
 			).trim()
 			echo "GIT VERSION: ${GIT_VERSION}"
 			def image = docker.build("test1:${GIT_VERSION}")
-			container = image.run("-p 11111:8080 --name=")
+			container = image.run("-p 11111:8080")
 		}
    }
     // stage ('Staging') {
@@ -41,11 +41,11 @@ node {
 	//		sh "mvn -f pom.xml docker:run"
 	//	}
     //  }
-  // stage ('Approval') {
-   //		timeout(time:1, unit:'DAYS') {
-   // 		input message:'Approve deployment to Production?', submitter: 'it-ops'
-	//	}
-  // }
+   stage ('Approval') {
+  		timeout(time:1, unit:'DAYS') {
+    		input message:'Approve deployment to Production?', submitter: 'it-ops'
+		}
+   }
   // stage ('Production') {
 //	  def mvn_version = 'M3'
 //		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {			
