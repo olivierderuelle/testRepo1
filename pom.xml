@@ -54,7 +54,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>test1.war</finalName>
+		<finalName>test1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

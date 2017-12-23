@@ -22,7 +22,8 @@ node {
 				returnStdout: true
 			).trim()
 			echo "GIT VERSION: ${GIT_VERSION}"
-			def image = docker.build("test1:${GIT_VERSION} --build-arg WAR_FILE=target/test1-0.0.1-SNAPSHOT.war")
+			//def image = docker.build("test1:${GIT_VERSION} --build-arg WAR_FILE=target/test1.war")
+			def image = docker.build("test1:${GIT_VERSION}")
 			container = image.run("-p 11111:8080")
 		}
    }
