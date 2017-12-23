@@ -13,6 +13,9 @@
 		<java.version>1.8</java.version>
 		<docker.buildArg.WAR_FILE>target/${project.artifactId}-${project.version}.${project.packaging}</docker.buildArg.WAR_FILE>
 	</properties>
+<build>
+  <finalName>test1.war</finalName>
+</build>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
