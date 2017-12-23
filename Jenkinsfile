@@ -11,13 +11,7 @@ node {
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
 		sh "echo 'jdk installation path is: ${jdk}'"
 		sh "${jdk}/bin/java -version"
-	    sh "mvn -f pom.xml clean compile"
-	  }
-   }
-   stage('Test') {
-      def mvn_version = 'M3'
-      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-	    sh "mvn -f pom.xml test"
+	    sh "mvn -f pom.xml clean install"
 	  }
    }
    stage('Build') {
