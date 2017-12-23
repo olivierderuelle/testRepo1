@@ -29,7 +29,7 @@ node {
 			).trim()
 			echo "GIT VERSION: ${GIT_VERSION}"
 			def image = docker.build("test1:${GIT_VERSION}")
-			container = image.run("-d -p 11111:8080 --name='test1'")
+			container = image.run("-p 11111:8080 --name=")
 		}
    }
     // stage ('Staging') {
