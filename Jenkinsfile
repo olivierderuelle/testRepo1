@@ -11,6 +11,10 @@ pipeline {
 		stage('Compile') {
 	        steps{
 	            checkout scm
+				script {
+					OD = sh (script: 'git describe',returnStdout: true).trim()
+                }
+				echo "OD GIT version: ${OD}"
 				sh "java -version"
 				echo "GIT version: ${GIT_VERSION}"
 			    sh "mvn -f pom.xml clean install"
@@ -21,7 +25,7 @@ pipeline {
 	        steps{
 				sh "docker stop test1"
 				sh "docker rm test1"
-				sh "docker run -p 11111:8080 --name test1 test1:${GIT_VERSION}"
+				sh "docker run -d -p 11111:8080 --name test1 test1:${GIT_VERSION}"
 	        }
 		}
 	}
