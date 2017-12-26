@@ -14,7 +14,6 @@ pipeline {
 				echo "GIT version: ${GIT_VERSION}"
 				sh "java -version"
 			    sh "mvn -f pom.xml clean compile"
-				sh "docker build -t test1:${GIT_VERSION} ."
 	        }
 		}
 		stage('Unit Test') {
