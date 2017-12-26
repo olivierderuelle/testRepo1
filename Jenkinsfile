@@ -14,13 +14,14 @@ pipeline {
 				sh "java -version"
 				echo "GIT version: ${GIT_VERSION}"
 			    sh "mvn -f pom.xml clean install"
-				sh "docker build -f dockerFile test1:${GIT_VERSION} --build-arg WAR_FILE=target/test1.war ."
+				sh "docker build -t test1:${GIT_VERSION} ."
 	        }
 		}
-		//stage('Staging') {
-	    //    steps{
-	    //        container = image.run("-p 11111:8080")
-	    //    }
-		//}
+		stage('Staging') {
+	        steps{
+				sh "docker stop test1"
+				sh "docker run -p 11111:8080 --name test1 test1:${GIT_VERSION}"
+	        }
+		}
 	}
 }
