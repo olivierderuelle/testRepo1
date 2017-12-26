@@ -46,13 +46,13 @@ pipeline {
 				echo "to implement"
 	        }
 		}
-		//stage('Approval') {
-	    //    steps{
-		//		timeout(time:1, unit:'DAYS') {
-		//			input message:'Approve Deployment to Production?', submitter: 'it-ops'
-		//		}
-	    //    }
-		//}
+		stage('Approval') {
+	        steps{
+				timeout(time:1, unit:'DAYS') {
+					input 'Approve Deployment to Production?'
+				}
+	        }
+		}
 		stage('Prod Deployment') {
 	        steps{
 				echo "to implement"
