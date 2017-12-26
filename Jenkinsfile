@@ -27,6 +27,13 @@ pipeline {
 				sh "docker build -t test1:${GIT_VERSION} ."
 	        }
 		}
+		stage('Docker Cloud') {
+	        steps{
+				sh "docker login --username olivierderuelle --password mypwd123"
+				sh "docker tag test1:${GIT_VERSION} olivierderuelle/test1:${GIT_VERSION}"
+				sh "docker push olivierderuelle/test1:${GIT_VERSION}"
+	        }
+		}
 		stage('Staging') {
 	        steps{
 				sh "docker stop test1"
@@ -39,13 +46,13 @@ pipeline {
 				echo "to implement"
 	        }
 		}
-		stage('Approval') {
-	        steps{
-				timeout(time:1, unit:'DAYS') {
-					input message:'Approve Deployment to Production?', submitter: 'it-ops'
-				}
-	        }
-		}
+		//stage('Approval') {
+	    //    steps{
+		//		timeout(time:1, unit:'DAYS') {
+		//			input message:'Approve Deployment to Production?', submitter: 'it-ops'
+		//		}
+	    //    }
+		//}
 		stage('Prod Deployment') {
 	        steps{
 				echo "to implement"
