@@ -20,6 +20,7 @@ pipeline {
 		stage('Staging') {
 	        steps{
 				sh "docker stop test1"
+				sh "docker rm test1"
 				sh "docker run -p 11111:8080 --name test1 test1:${GIT_VERSION}"
 	        }
 		}
