@@ -29,14 +29,19 @@ pipeline {
 		}
 		stage('Docker Cloud') {
 	        steps{
-				docker.withRegistry('https://hub.docker.com/r/olivierderuelle/test1', 'olivierderuelle') {
-					sh "docker tag test1:${GIT_VERSION} olivierderuelle/test1:${GIT_VERSION}"
-					sh "docker push olivierderuelle/test1:${GIT_VERSION}"
-				}
-				//sh "docker login --username olivierderuelle --password mypwd123"
-				//sh "docker tag test1:${GIT_VERSION} olivierderuelle/test1:${GIT_VERSION}"
-				//sh "docker push olivierderuelle/test1:${GIT_VERSION}"
-	        }
+				 withCredentials(
+					 [[
+						 $class: 'UsernamePasswordMultiBinding',
+						 credentialsId: 'DOCKER_CLOUD_CREDENTIAL_ID',
+						 passwordVariable: 'DOCKERHUB_PASSWORD',
+						 usernameVariable: 'DOCKERHUB_USERNAME'
+					 ]]
+				 ) {
+					 sh "docker login --username ${env.DOCKERHUB_USERNAME} --password ${env.DOCKERHUB_PASSWORD}"
+					 sh "docker tag test1:${GIT_VERSION} olivierderuelle/test1:${GIT_VERSION}"
+					 sh "docker push olivierderuelle/test1:${GIT_VERSION}"
+				 }
+			}
 		}
 		stage('Staging') {
 	        steps{
