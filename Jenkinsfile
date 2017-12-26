@@ -14,7 +14,7 @@ pipeline {
 				sh "java -version"
 				echo "GIT version: ${GIT_VERSION}"
 			    sh "mvn -f pom.xml clean install"
-				sh "docker build -f dockerFile test1:${GIT_VERSION} --build-arg WAR_FILE=target/test1.war .")
+				sh "docker build -f dockerFile test1:${GIT_VERSION} --build-arg WAR_FILE=target/test1.war ."
 	        }
 		}
 		//stage('Staging') {
