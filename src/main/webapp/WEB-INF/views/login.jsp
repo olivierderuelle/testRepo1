@@ -11,7 +11,7 @@
     <font color="red">${errorMessage}</font>
     <c:url var="loginUrl" value="/login" />
 	<form action="${loginUrl}" method="post" class="form-horizontal">
-        NameSDFSDF: <input type="text" name="name" />
+        Name NEW: <input type="text" name="name" />
         Password : <input type="password" name="password" /> 
         <input type="submit" />
     </form>
