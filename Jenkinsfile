@@ -3,6 +3,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 	agent any
+	environment {
+        V1 = 'default'
+    }
     tools { 
         maven 'M3' 
 		jdk 'java8'
@@ -13,8 +16,12 @@ pipeline {
 	            checkout scm
 				script {
 					GIT_VERSION = sh (script: 'git describe',returnStdout: true).trim()
+					withEnv(['V1=' + GIT_VERSION]) {
+                        sh "echo $V1"
+                    }
                 }
 				echo "GIT version: ${GIT_VERSION}"
+				echo "v1: $V1"
 				sh "java -version"
 			    sh "mvn -f pom.xml clean compile"
 	        }
@@ -37,6 +44,7 @@ pipeline {
                 }
 				echo "Retrieved AWS Login: ${loginAwsEcrInfo}"
                 sh '${loginAwsEcrInfo}'
+				echo "v1: $V1"
 				sh 'docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
 				sh 'docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
 			}
