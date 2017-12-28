@@ -41,10 +41,10 @@ pipeline {
 					loginAwsEcrInfo = sh (script: '/usr/local/bin/aws ecr get-login --no-include-email --region us-east-2',returnStdout: true).trim()
                 }
 				echo "Retrieved AWS Login: ${loginAwsEcrInfo}"
-                sh '${loginAwsEcrInfo}'
+                sh "${loginAwsEcrInfo}"
 				echo "GIT version: ${GIT_VERSION}"
-				sh 'docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
-				sh 'docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
+				sh "docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}"
+				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}"
 			}
 		}
 		stage('Push To DockerHub') {
