@@ -1,4 +1,7 @@
 pipeline {
+	options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
 	agent any
     tools { 
         maven 'M3' 
@@ -27,7 +30,18 @@ pipeline {
 				sh "docker build -t test1:${GIT_VERSION} ."
 	        }
 		}
-		stage('Docker Cloud') {
+		stage('Push To AWS ECR') {
+	        steps{
+				script {
+					loginAwsEcrInfo = sh (script: 'aws ecr get-login --no-include-email --region us-east-2',returnStdout: true).trim()
+                }
+				echo "Retrieved AWS Login: ${loginAwsEcrInfo}"
+                sh '${loginAwsEcrInfo}'
+				sh 'docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
+				sh 'docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
+			}
+		}
+		stage('Push To DockerHub') {
 	        steps{
 				 withCredentials(
 					 [[
