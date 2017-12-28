@@ -16,12 +16,8 @@ pipeline {
 	            checkout scm
 				script {
 					GIT_VERSION = sh (script: 'git describe',returnStdout: true).trim()
-					withEnv(['V1=' + GIT_VERSION]) {
-                        sh "echo $V1"
-                    }
                 }
 				echo "GIT version: ${GIT_VERSION}"
-				echo "v1: $V1"
 				sh "java -version"
 			    sh "mvn -f pom.xml clean compile"
 	        }
@@ -33,18 +29,20 @@ pipeline {
 		}
 		stage('Build') {
 	        steps{
+				echo "GIT version: ${GIT_VERSION}"
 			    sh "mvn -f pom.xml package"
 				sh "docker build -t test1:${GIT_VERSION} ."
 	        }
 		}
 		stage('Push To AWS ECR') {
 	        steps{
+				echo "GIT version: ${GIT_VERSION}"
 				script {
 					loginAwsEcrInfo = sh (script: '/usr/local/bin/aws ecr get-login --no-include-email --region us-east-2',returnStdout: true).trim()
                 }
 				echo "Retrieved AWS Login: ${loginAwsEcrInfo}"
                 sh '${loginAwsEcrInfo}'
-				echo "v1: $V1"
+				echo "GIT version: ${GIT_VERSION}"
 				sh 'docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
 				sh 'docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}'
 			}
