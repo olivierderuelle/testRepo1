@@ -22,15 +22,6 @@ pipeline {
 			    sh "mvn -f pom.xml clean compile"
 	        }
 		}
-		stage('Prod Deploymentsss') {
-			steps{
-				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'"
-				script {
-					ecsTaskNewRevisionJsonResponse = sh (script: "/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'",returnStdout: true).trim()
-				}
-				echo "Retrieved AWS Latest Task Revision: ${ecsTaskNewRevisionJsonResponse}"
-			}
-		}
 		stage('Unit Test') {
 	        steps{
 			    sh "mvn -f pom.xml test"
@@ -101,12 +92,12 @@ pipeline {
 		*/
 		stage('Prod Deployment') {
 	        steps{
-				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
+				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
+				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'"
 				script {
-					ecsTaskNewRevisionJsonResponse = sh (script: '/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json',returnStdout: true).trim()
+					ecsTaskLatestRevision = sh (script: "/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'",returnStdout: true).trim()
 				}
 				echo "Retrieved AWS Latest Task Revision: ${ecsTaskLatestRevision}"
-				sh "egrep \"revision\""
 				sh "aws ecs update-service --cluster od-cluster1 --service od-service-5 --task-definition odTaskDefinition1:${ecsTaskLatestRevision}"
 	        }
 		}
