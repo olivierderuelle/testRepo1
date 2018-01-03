@@ -12,7 +12,7 @@
       "memory": 300,
       "image": "575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:VAR-TAG-NAME",
       "essential": true,
-      "name": "VAR-CONTAINER-NAME"
+      "name": "test1"
     }
   ],
   "memory": "300",
