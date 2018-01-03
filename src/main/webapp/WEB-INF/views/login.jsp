@@ -15,6 +15,7 @@
         Password : <input type="password" name="password" /> 
         <input type="submit" />
     </form>
+    <div>Version: ${buildVersion}</div>
 </body>
 
 </html>

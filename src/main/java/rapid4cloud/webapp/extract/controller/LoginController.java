@@ -1,13 +1,19 @@
 package rapid4cloud.webapp.extract.controller;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.endpoint.InfoEndpoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import rapid4cloud.webapp.extract.configuration.MvcConfiguration;
 import rapid4cloud.webapp.extract.service.LoginService;
 
 @Controller
@@ -17,6 +23,9 @@ public class LoginController
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	private InfoEndpoint infoEndpoint;
+	
 	/*
 	 * Sample on how to read properties from the file application.properties in the resources folder
 	 */
@@ -24,7 +33,9 @@ public class LoginController
 	private String message = "Hello World";
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public String showLoginPage() {
+	public String showLoginPage(ModelMap model) {
+		String buildVersion=MvcConfiguration.getBuildVersion();
+		model.put("buildVersion", buildVersion);
 		return "login";
 	}
 
@@ -45,5 +56,22 @@ public class LoginController
 
         return "welcome";
     }
+	
+	@SuppressWarnings("unchecked")
+	public String getBuildVersion() {
+		String buildVersion="N/A";
+		Map<String, Object> infoProperties=infoEndpoint.invoke();
+		if (!infoProperties.isEmpty()){
+			LinkedHashMap<String,Object> values=(LinkedHashMap<String,Object>) infoProperties.get("build");
+			if (values!=null) {
+				String buildVersionStr=(String) values.get("version");
+				if (buildVersionStr!=null) {
+					buildVersion=buildVersionStr;
+				}
+			}
+		}
+		System.out.println("#### VERSION: "+buildVersion);
+		return buildVersion;
+	}
 
 }
