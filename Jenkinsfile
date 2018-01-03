@@ -22,6 +22,15 @@ pipeline {
 			    sh "mvn -f pom.xml clean compile"
 	        }
 		}
+		stage('Prod Deploymentsss') {
+			steps{
+				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
+				script {
+					ecsTaskNewRevisionJsonResponse = sh (script: '''/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep "revision"''',returnStdout: true).trim()
+				}
+				echo "Retrieved AWS Latest Task Revision: ${ecsTaskLatestRevision}"
+			}
+		}
 		stage('Unit Test') {
 	        steps{
 			    sh "mvn -f pom.xml test"
@@ -35,6 +44,7 @@ pipeline {
 				sh "docker tag test1:${GIT_VERSION} test1:latest"
 	        }
 		}
+		/*
 		stage('Push To AWS ECR') {
 	        steps{
 				echo "GIT version: ${GIT_VERSION}"
@@ -50,6 +60,7 @@ pipeline {
 				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
 			}
 		}
+		*/
 		/*
 		stage('Push To DockerHub') {
 	        steps{
@@ -92,9 +103,10 @@ pipeline {
 	        steps{
 				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
 				script {
-					ecsTaskLatestRevision = sh (script: '/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep "revision"',returnStdout: true).trim()
+					ecsTaskNewRevisionJsonResponse = sh (script: '/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json',returnStdout: true).trim()
 				}
 				echo "Retrieved AWS Latest Task Revision: ${ecsTaskLatestRevision}"
+				sh "egrep \"revision\""
 				sh "aws ecs update-service --cluster od-cluster1 --service od-service-5 --task-definition odTaskDefinition1:${ecsTaskLatestRevision}"
 	        }
 		}
