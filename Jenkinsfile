@@ -32,6 +32,7 @@ pipeline {
 				echo "GIT version: ${GIT_VERSION}"
 			    sh "mvn -f pom.xml package"
 				sh "docker build -t test1:${GIT_VERSION} ."
+				sh "docker tag test1:${GIT_VERSION} test1:latest"
 	        }
 		}
 		stage('Push To AWS ECR') {
@@ -44,7 +45,7 @@ pipeline {
                 sh "${loginAwsEcrInfo}"
 				echo "GIT version: ${GIT_VERSION}"
 				sh "docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}"
-				sh "docker tag test1:${GIT_VERSION} 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
+				sh "docker tag test1:latest 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
 				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:${GIT_VERSION}"
 				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
 			}
