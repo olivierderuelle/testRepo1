@@ -92,7 +92,7 @@ pipeline {
 	        steps{
 				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
 				script {
-					ecsTaskLatestRevision = sh (script: '/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep "revision" | awk ''''{print $2}'''',returnStdout: true).trim()
+					ecsTaskLatestRevision = sh (script: "/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \\"revision\\" | awk '{print $2}'",returnStdout: true).trim()
 				}
 				echo "Retrieved AWS Latest Task Revision: ${ecsTaskLatestRevision}"
 				sh "aws ecs update-service --cluster od-cluster1 --service od-service-5 --task-definition odTaskDefinition1:${ecsTaskLatestRevision}"
