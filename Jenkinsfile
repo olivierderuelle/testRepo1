@@ -35,7 +35,6 @@ pipeline {
 				sh "docker tag test1:${GIT_VERSION} test1:latest"
 	        }
 		}
-		/*
 		stage('Push To AWS ECR') {
 	        steps{
 				echo "GIT version: ${GIT_VERSION}"
@@ -51,7 +50,6 @@ pipeline {
 				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
 			}
 		}
-		*/
 		/*
 		stage('Push To DockerHub') {
 	        steps{
