@@ -43,7 +43,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter
 		}
 		String str="#### VERSION: "+buildVersion;
 		System.out.println(str);
-		LOGGER.info(str);
+		LOGGER.info(str); 
 	}
 	
 	public static String getBuildVersion() {
