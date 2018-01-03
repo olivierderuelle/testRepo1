@@ -92,8 +92,8 @@ pipeline {
 	        steps{
 				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
 				//sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'"
-				sh "sed 's/VAR-CONTAINER-NAME/${GIT_VERSION}/g awsTaskDefinitionTest1.json >> awsTaskDefinitionTest1TEMP.json" 
-				sh "sed -i 's/VAR-TAG-NAME/${GIT_VERSION}/g awsTaskDefinitionTest1TEMP.json"
+				sh "sed 's/VAR-CONTAINER-NAME/${GIT_VERSION}/g' awsTaskDefinitionTest1.json >> awsTaskDefinitionTest1TEMP.json" 
+				sh "sed -i 's/VAR-TAG-NAME/${GIT_VERSION}/g' awsTaskDefinitionTest1TEMP.json"
 				script {
 					ecsTaskLatestRevision = sh (script: "/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1TEMP.json | egrep \"revision\" | awk '{print \$2}'",returnStdout: true).trim()
 				}
