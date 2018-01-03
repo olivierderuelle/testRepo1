@@ -87,7 +87,7 @@ pipeline {
 		}
 		stage('Prod Deployment') {
 	        steps{
-				echo "to implement"
+				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
 	        }
 		}
 	}

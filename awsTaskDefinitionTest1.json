@@ -1,0 +1,20 @@
+{
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 8080
+        }
+      ],
+      "cpu": 0,
+      "memory": 300,
+      "image": "575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest",
+      "essential": true,
+      "name": "test1"
+    }
+  ],
+  "memory": "300",
+  "family": "odTaskDefinition1",
+}
