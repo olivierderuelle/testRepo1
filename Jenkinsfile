@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage('Prod Deploymentsss') {
 			steps{
-				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\""
+				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'"
 				/*script {
 					ecsTaskNewRevisionJsonResponse = sh (script: '/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep "revision"',returnStdout: true).trim()
 				}*/
