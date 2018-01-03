@@ -28,7 +28,7 @@ pipeline {
 				script {
 					ecsTaskNewRevisionJsonResponse = sh (script: "/usr/local/bin/aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json | egrep \"revision\" | awk '{print \$2}'",returnStdout: true).trim()
 				}
-				echo "Retrieved AWS Latest Task Revision: ${ecsTaskLatestRevision}"
+				echo "Retrieved AWS Latest Task Revision: ${ecsTaskNewRevisionJsonResponse}"
 			}
 		}
 		stage('Unit Test') {
