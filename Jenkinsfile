@@ -50,6 +50,7 @@ pipeline {
 				sh "docker push 575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest"
 			}
 		}
+		/*
 		stage('Push To DockerHub') {
 	        steps{
 				 withCredentials(
@@ -66,6 +67,7 @@ pipeline {
 				 }
 			}
 		}
+		*/
 		stage('Staging') {
 	        steps{
 				sh "docker stop test1"
@@ -78,13 +80,14 @@ pipeline {
 				echo "to implement"
 	        }
 		}
-		stage('Approval') {
+		/*stage('Approval') {
 	        steps{
 				timeout(time:1, unit:'DAYS') {
 					input 'Approve Deployment to Production?'
 				}
 	        }
 		}
+		*/
 		stage('Prod Deployment') {
 	        steps{
 				sh "aws ecs register-task-definition --cli-input-json file://${workspace}/awsTaskDefinitionTest1.json"
