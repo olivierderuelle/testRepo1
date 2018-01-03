@@ -10,9 +10,9 @@
       ],
       "cpu": 0,
       "memory": 300,
-      "image": "575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:latest",
+      "image": "575331706869.dkr.ecr.us-east-2.amazonaws.com/test1:VAR-TAG-NAME",
       "essential": true,
-      "name": "test1"
+      "name": "VAR-CONTAINER-NAME"
     }
   ],
   "memory": "300",
