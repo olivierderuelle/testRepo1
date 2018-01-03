@@ -23,9 +23,6 @@ public class LoginController
 	@Autowired
 	private LoginService loginService;
 
-	@Autowired
-	private InfoEndpoint infoEndpoint;
-	
 	/*
 	 * Sample on how to read properties from the file application.properties in the resources folder
 	 */
@@ -56,22 +53,5 @@ public class LoginController
 
         return "welcome";
     }
-	
-	@SuppressWarnings("unchecked")
-	public String getBuildVersion() {
-		String buildVersion="N/A";
-		Map<String, Object> infoProperties=infoEndpoint.invoke();
-		if (!infoProperties.isEmpty()){
-			LinkedHashMap<String,Object> values=(LinkedHashMap<String,Object>) infoProperties.get("build");
-			if (values!=null) {
-				String buildVersionStr=(String) values.get("version");
-				if (buildVersionStr!=null) {
-					buildVersion=buildVersionStr;
-				}
-			}
-		}
-		System.out.println("#### VERSION: "+buildVersion);
-		return buildVersion;
-	}
 
 }

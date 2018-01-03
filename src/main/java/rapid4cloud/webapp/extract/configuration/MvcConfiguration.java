@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.InfoEndpoint;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan
 public class MvcConfiguration extends WebMvcConfigurerAdapter
 {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(MvcConfiguration.class);
 	
 	@Autowired
 	private InfoEndpoint infoEndpoint;
@@ -37,7 +41,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter
 				}
 			}
 		}
-		System.out.println("#### VERSION: "+buildVersion);
+		String str="#### VERSION: "+buildVersion;
+		System.out.println(str);
+		LOGGER.info(str);
 	}
 	
 	public static String getBuildVersion() {
@@ -46,7 +52,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		System.out.println("#### CURRENT FOLDER: '"+(new File(".")).getAbsolutePath()+"'");
+		String currentFolder="#### CURRENT FOLDER: '"+(new File(".")).getAbsolutePath()+"'";
+		System.out.println(currentFolder);
+		LOGGER.info(currentFolder);
 		initBuildVersion();
 		
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
